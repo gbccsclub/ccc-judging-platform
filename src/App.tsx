@@ -1,28 +1,25 @@
 import './App.css'
-import { Button, createTheme, ThemeProvider } from "flowbite-react";
-
-const customTheme = createTheme({
-  button: {
-    color: {
-      primary: "bg-red-500 hover:bg-red-600 text-white",
-      secondary: "bg-blue-500 hover:bg-blue-600 text-white",
-    },
-    size: {
-      lg: "px-6 py-3 text-lg",
-    },
-  },
-});
+import { ThemeProvider } from "flowbite-react"
+import { customTheme } from './services/flowbite'
+import { supabase } from './services/supabaseClient'
+import SignIn from './components/SignIn'
+import { useSession } from './hooks/useSession'
 
 function App() {
-  return (
-    <ThemeProvider theme={customTheme}>
-      <div className='flex flex-col justify-center items-center h-[90vh]'>
-        <p>GBC CS Club</p>
-        <h1>Judging App</h1>
-        <Button color="primary" size="sm">Custom Button</Button>
-      </div>
-    </ThemeProvider>
-  )
+    const { session } = useSession(supabase);
+
+    return (
+        <ThemeProvider theme={customTheme}>
+            <div className='flex flex-col justify-center items-center h-[90vh]'>
+                <p>GBC CS Club</p>
+                <h1 className="text-2xl font-bold mb-4">Judging App</h1>
+
+                {session
+                    ? <div>Logged in!</div>
+                    : <SignIn supabase={supabase} />}
+            </div>
+        </ThemeProvider>
+    );
 }
 
 export default App
