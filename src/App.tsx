@@ -1,34 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { Button, createTheme, ThemeProvider } from "flowbite-react";
+
+const customTheme = createTheme({
+  button: {
+    color: {
+      primary: "bg-red-500 hover:bg-red-600 text-white",
+      secondary: "bg-blue-500 hover:bg-blue-600 text-white",
+    },
+    size: {
+      lg: "px-6 py-3 text-lg",
+    },
+  },
+});
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <ThemeProvider theme={customTheme}>
+      <div className='flex flex-col justify-center items-center h-[90vh]'>
+        <p>GBC CS Club</p>
+        <h1>Judging App</h1>
+        <Button color="primary" size="sm">Custom Button</Button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </ThemeProvider>
   )
 }
 
