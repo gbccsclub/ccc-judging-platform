@@ -1,11 +1,9 @@
-import { User } from "@supabase/supabase-js";
 import DiffusedGradientCircle from "./DiffusedGradientCircle";
-import { Button } from "flowbite-react";
 import { useState } from "react";
 import DownArrow from "../DownArrow";
 import { useMessage } from "../../context/MessageContext";
-import { AnimatePresence, motion } from "motion/react";
 import UserSettingControl from "./UserSettingControl";
+import { User } from "../../types";
 
 export interface UserProfileProps {
     signOut: () => void;
@@ -20,12 +18,11 @@ function isEmptyOrSpaces(str: string) {
 export default function UserProfile({
     signOut,
     updateUsername,
-    user
+    user,
 }: UserProfileProps) {
     const { setMessage } = useMessage();
-    const usernameNotChanged = user.user_metadata.name === null;
-    const previousUsername = user.user_metadata.name ?? "Nullll User";
-    const [username, setUsername] = useState<string>(previousUsername);
+    const usernameNotChanged = user.username === "Nullll User";
+    const [username, setUsername] = useState<string>(user.username);
     const [editing, setEditing] = useState<boolean>(false);
 
     const handleSave = () => {
@@ -73,7 +70,7 @@ export default function UserProfile({
                 signOut={signOut}
                 handleSave={handleSave}
                 username={username}
-                previousUsername={previousUsername}
+                previousUsername={user.username}
             />
         </div>
     );
