@@ -1,9 +1,9 @@
-import { Session, SupabaseClient } from "@supabase/supabase-js";
+import { Session } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
+import { useSupabase } from "../context/SupabaseContext";
 
-export const useSession = (
-    supabase: SupabaseClient,
-) => {
+export const useSession = () => {
+    const { supabase } = useSupabase();
     const [session, setSession] = useState<Session | null>(null)
 
     useEffect(() => {
@@ -18,7 +18,7 @@ export const useSession = (
         });
 
         return () => subscription.unsubscribe();
-    }, []);
+    }, [supabase]);
 
     return {
         session,

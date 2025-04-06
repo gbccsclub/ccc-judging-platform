@@ -1,20 +1,16 @@
-import { SupabaseClient } from "@supabase/supabase-js";
 import { useAuth } from "../hooks/useAuth";
+import { useMessage } from "../context/MessageContext";
 import SignInForm from "../components/auth/SignInForm";
+import { useSupabase } from "../context/SupabaseContext";
 
-export interface SignedOutViewProps {
-    supabase: SupabaseClient;
-    setMessage: (message: any) => void;
+interface SignedOutViewProps {
 }
 
 export default function SignedOutView({
-    supabase,
-    setMessage,
 }: SignedOutViewProps) {
-    const {
-        loading,
-        signIn,
-    } = useAuth(supabase, setMessage);
+    const { supabase } = useSupabase();
+    const { setMessage } = useMessage();
+    const { loading, signIn } = useAuth(supabase, setMessage);
 
     return <>
         <SignInForm

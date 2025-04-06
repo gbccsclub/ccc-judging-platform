@@ -1,13 +1,9 @@
 import { Alert } from "flowbite-react";
-import { Message } from "../types";
+import { useMessage } from "../context/MessageContext";
 
-export interface MessageProps {
-    message: Message | null;
-}
-
-export default function MessageDialog({
-    message
-}: MessageProps) {
+export default function MessageDialog() {
+    const { message } = useMessage();
+    
     if (!message) return <></>;
     return <>
         <Alert
