@@ -7,7 +7,7 @@ export const useUserManagement = (supabase: SupabaseClient) => {
 
     const updateUsername = async (username: string) => {
         setMessage({
-            type: 'info',
+            type: 'loading',
             text: 'Updating username...'
         });
 
@@ -25,7 +25,7 @@ export const useUserManagement = (supabase: SupabaseClient) => {
 
     const signOut = async () => {
         setMessage({
-            type: 'info',
+            type: 'loading',
             text: 'Signing out...'
         });
 

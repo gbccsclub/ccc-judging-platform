@@ -13,5 +13,14 @@ export const customTheme = createTheme({
     popover: {
         inner: "bg-gray-200 p-2 rounded-lg border-none",
         base: "rounded-xl border-none",
-    }
+    },
+    alert: {
+        color: {
+            success: "bg-green-200 text-green-600",
+            failure: "bg-red-200 text-red-600",
+            info: "bg-gray-200 text-gray-600",
+            warning: "bg-orange-200 text-orange-600",
+            loading: "bg-gray-200 text-gray-600",
+        }
+    },
 });

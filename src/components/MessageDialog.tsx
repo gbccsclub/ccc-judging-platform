@@ -9,14 +9,16 @@ export default function MessageDialog() {
         success: 'success',
         error: 'failure',
         info: 'info',
-        warning: 'warning'
+        warning: 'warning',
+        loading: 'loading'
     };
 
     const iconMap = {
         success: 'fa-circle-check',
         error: 'fa-circle-exclamation',
         info: 'fa-circle-info',
-        warning: 'fa-circle-exclamation'
+        warning: 'fa-circle-exclamation',
+        loading: 'fa-circle-notch fa-spin'
     };
 
     return <AnimatePresence>
