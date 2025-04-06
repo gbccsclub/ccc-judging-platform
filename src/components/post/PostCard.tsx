@@ -38,15 +38,7 @@ export default function PostCard({
             <p className="text-sm text-gray-500">
                 {post.description}
             </p>
-            {isVisible ? (
-                <iframe src={post.link} 
-                width={"100%"} height={500}
-                />
-            ) : (
-                <div className="w-full h-[500px] bg-gray-100 flex items-center justify-center">
-                    <p className="text-gray-400">Content will load when visible</p>
-                </div>
-            )}
+            {isVisible && <iframe src={post.link} width={"100%"} height={500} />}
         </div>
     </>
 }
