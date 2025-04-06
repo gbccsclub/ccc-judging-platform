@@ -4,7 +4,8 @@ import { customTheme } from './services/flowbite'
 import { supabase } from './services/supabaseClient'
 import SignIn from './components/SignIn'
 import { useSession } from './hooks/useSession'
-import { SignOut } from './components/SignOut'
+import Title from './components/Title'
+import Welcome from './components/Welcome'
 
 function App() {
     const { session } = useSession(supabase);
@@ -12,12 +13,15 @@ function App() {
     return (
         <ThemeProvider theme={customTheme}>
             <div className='flex flex-col justify-center items-center h-[90vh]'>
-                <p>GBC CS Club</p>
-                <h1 className="text-2xl font-bold mb-4">Creative Coding Judging Platform</h1>
+                <Title isLoggedIn={!!session}/>
 
-                {session
-                    ? <SignOut supabase={supabase} />
-                    : <SignIn supabase={supabase} />}
+                {session &&
+                    <div className='flex flex-col space-y-2 justify-center items-end'>
+                        <Welcome session={session} />
+                    </div>
+                }
+
+                {!session && <SignIn supabase={supabase} />}
             </div>
         </ThemeProvider>
     );

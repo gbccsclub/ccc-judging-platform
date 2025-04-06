@@ -5,13 +5,13 @@ export interface SignOutProps {
     supabase: SupabaseClient;
 }
 
-export const SignOut = ({
+export default function SignOut({
     supabase
-}: SignOutProps) => {
+}: SignOutProps) {
     return (
         <Button
             color="secondary"
-            size='sm'
+            size='xs'
             onClick={() => supabase.auth.signOut()}
         >
             Sign Out
