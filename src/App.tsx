@@ -1,14 +1,9 @@
-import { ThemeProvider } from "flowbite-react"
-import { customTheme } from './services/flowbite'
 import Title from './components/Title'
-import MessageDialog from './components/MessageDialog'
 import SignedInView from './views/SignedInView'
 import SignedOutView from './views/SignedOutView'
-import { MessageProvider } from './context/MessageContext'
-import { SupabaseProvider } from './context/SupabaseContext'
-import { SessionProvider, useSession } from './context/SessionContext'
+import { useSession } from './context/SessionContext'
 
-function AppContent() {
+function App() {
     const { session, isLoading } = useSession();
 
     if (isLoading) {
@@ -21,21 +16,6 @@ function AppContent() {
             {session ? <SignedInView /> : <SignedOutView />}
         </div>
     </>;
-}
-
-function App() {
-    return (
-        <ThemeProvider theme={customTheme}>
-            <SupabaseProvider>
-                <MessageProvider>
-                    <SessionProvider>
-                        <AppContent />
-                        <MessageDialog />
-                    </SessionProvider>
-                </MessageProvider>
-            </SupabaseProvider>
-        </ThemeProvider>
-    );
 }
 
 export default App
