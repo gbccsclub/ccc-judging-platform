@@ -2,6 +2,7 @@ import { User } from "@supabase/supabase-js";
 import DiffusedGradientCircle from "./DiffusedGradientCircle";
 import { Button } from "flowbite-react";
 import { useState } from "react";
+import DownArrow from "../DownArrow";
 
 export interface UserProfileProps {
     signOut: () => void;
@@ -14,6 +15,7 @@ export default function UserProfile({
     updateUsername,
     user
 }: UserProfileProps) {
+    const usernameNotChanged = user.user_metadata.name === null;
     const previousUsername = user.user_metadata.name ?? "Nullll User";
     const [username, setUsername] = useState<string>(previousUsername);
     const [editing, setEditing] = useState<boolean>(false);
@@ -24,6 +26,18 @@ export default function UserProfile({
             onClick={() => setEditing(true)}
         >
             <div className='flex flex-row space-x-2 cursor-pointer group'>
+                {usernameNotChanged && (
+                    <div className="absolute -top-15 left-0 z-10">
+                        <div className="relative">
+                            <div className="text-sm font-serif italic text-gray-400 transform -rotate-3">
+                                update your username
+                            </div>
+                            
+                            <DownArrow />
+                        </div>
+                    </div>
+                )}
+                
                 <input
                     className='text-md text-blue-700 focus:outline-none focus:ring-1 group-hover:text-emerald-500 border border-gray-300 rounded-md px-2 py-0 transition duration-200 ease-in-out min-w-[80px]'
                     onBlur={() => setEditing(false)}
