@@ -1,19 +1,14 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { useState } from "react";
-
-export interface Message {
-    type: 'success' | 'error';
-    text: string;
-}
+import { Message } from "../types";
 
 export const useAuth = (
     supabase: SupabaseClient,
-    email: string,
+    setMessage: (message: Message | null) => void,
 ) => {
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState<Message | null>(null);
 
-    const signIn = async () => {
+    const signIn = async (email: string) => {
         if (!email) {
             setMessage({
                 type: 'error',
@@ -48,7 +43,6 @@ export const useAuth = (
 
     return {
         loading,
-        message,
         signIn,
     }
 };

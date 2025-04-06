@@ -1,22 +1,17 @@
-import { SupabaseClient } from '@supabase/supabase-js';
 import { useState } from 'react';
-import { useAuth } from '../hooks/useAuth';
 import { Alert, Button } from 'flowbite-react';
 
 export interface SignInProps {
-    supabase: SupabaseClient;
+    loading: boolean;
+    signIn: (email: string) => void;
 }
 
-export default function SignIn({
-    supabase
+export default function SignInForm({
+    loading,
+    signIn,
 }: SignInProps) {
     const [showOTPInfo, setShowOTPInfo] = useState(true);
     const [email, setEmail] = useState('');
-    const {
-        loading,
-        message,
-        signIn,
-    } = useAuth(supabase, email);
 
     return (
         <div className="flex flex-col space-y-2 w-[25rem]">
@@ -38,22 +33,12 @@ export default function SignIn({
                 <Button
                     size="md"
                     color="primary"
-                    onClick={signIn}
+                    onClick={() => signIn(email)}
                     disabled={loading}
                 >
                     {loading ? 'Sending...' : 'Sign In'}
                 </Button>
             </div>
-
-            {message &&
-                <Alert
-                    color={message.type === 'success' ? 'success' : 'failure'}>
-                    {message.type === 'success'
-                        ? <i className="fa-solid fa-circle-check"></i>
-                        : <i className="fa-solid fa-circle-exclamation"></i>}
-                    <span> </span>
-                    {message.text}
-                </Alert>}
 
             {showOTPInfo &&
                 <Alert
