@@ -1,11 +1,12 @@
+import { useSession } from "../context/SessionContext";
 
 export interface TitleProps {
-    isLoggedIn: boolean;
 }
 
 export default function Title ({
-    isLoggedIn
 }: TitleProps) {
+    const { session } = useSession();
+    const isLoggedIn = !!session;
     return <>
         <div className={'flex flex-col justify-start mb-4 ' + (isLoggedIn ? 'fixed top-4 left-4' : '')}>
             <h1 className={(isLoggedIn ? "text-lg" : "text-3xl") + " text-left font-serif text-gray-700"}>

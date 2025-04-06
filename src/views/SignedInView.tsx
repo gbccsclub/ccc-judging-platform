@@ -1,16 +1,15 @@
-import { Session, SupabaseClient } from "@supabase/supabase-js";
 import { useUserManagement } from "../hooks/useUserManagement";
 import Greeting from "../components/user/Greeting";
 import UserProfile from "../components/user/UserProfile";
 import { useSupabase } from "../context/SupabaseContext";
+import { useSession } from "../context/SessionContext";
 
 export interface SignedInViewProps {
-    session: Session;
 }
 
 export default function SignedInView({
-    session
 }: SignedInViewProps) {
+    const { session } = useSession();
     const { supabase } = useSupabase();
 
     const {
@@ -27,7 +26,7 @@ export default function SignedInView({
                     <UserProfile
                         signOut={signOut}
                         updateUsername={updateUsername}
-                        user={session.user}
+                        user={session!.user}
                     />
                 </h2>
             </div>

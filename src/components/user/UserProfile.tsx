@@ -1,6 +1,6 @@
 import { User } from "@supabase/supabase-js";
 import DiffusedGradientCircle from "./DiffusedGradientCircle";
-import { Button, Popover, Tooltip } from "flowbite-react";
+import { Button } from "flowbite-react";
 import { useState } from "react";
 
 export interface UserProfileProps {
