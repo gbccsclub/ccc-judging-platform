@@ -15,7 +15,7 @@ export default function SignedInView({
     const {
         signOut,
         updateUsername,
-    } = useUserManagement(supabase, session);
+    } = useUserManagement(supabase);
 
     return <>
         <div className='flex flex-col space-y-2 justify-center items-end'>
