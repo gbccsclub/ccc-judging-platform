@@ -1,6 +1,6 @@
 import { Session, SupabaseClient } from "@supabase/supabase-js";
 import { useMessage } from "../context/MessageContext";
-import { Post } from "../types";
+import { PostWithUser } from "../types";
 import { useEffect, useState } from "react";
 
 export const usePostManagement = (
@@ -9,7 +9,7 @@ export const usePostManagement = (
     numPostsPerPage: number = 10,
 ) => {
     const { setMessage } = useMessage();
-    const [posts, setPosts] = useState<Post[]>([]);
+    const [posts, setPosts] = useState<PostWithUser[]>([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
