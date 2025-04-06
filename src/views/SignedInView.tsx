@@ -6,6 +6,7 @@ import { useSession } from "../context/SessionContext";
 import { Button } from "flowbite-react";
 import PostForm from "../components/post/PostForm";
 import { usePostManagement } from "../hooks/usePostManagement";
+import PostList from "../components/post/PostList";
 
 export interface SignedInViewProps {
 }
@@ -23,10 +24,13 @@ export default function SignedInView({
 
     const {
         createPost,
+        posts,
+        loadMore,
+        loading,
     } = usePostManagement(supabase, session);
 
-    return <>
-        <div className='flex flex-col space-y-2 justify-center items-end'>
+    return <div>
+        <div className='flex flex-col space-y-2 justify-center h-full'>
             <div className={"flex flex-col space-y-2 " + (!session ? 'w-[25rem]' : '')}>
                 <h2 className="text-3xl font-serif flex flex-row items-center">
                     <Greeting />
@@ -44,9 +48,18 @@ export default function SignedInView({
                 </h2>
             </div>
 
-            <PostForm 
+            <PostForm
                 createPost={createPost}
             />
+
         </div>
-    </>
+
+        <div className="flex flex-col space-y-2 justify-start items-center pt-20">
+            <PostList
+                loading={loading}
+                posts={posts}
+                loadMore={loadMore}
+            />
+        </div>
+    </div>
 }
