@@ -1,3 +1,4 @@
+import { motion } from 'motion/react';
 import React, { useEffect, useState } from 'react';
 
 interface ColorBlob {
@@ -15,14 +16,14 @@ export interface CircleProps {
 
 export default function DiffusedGradientCircle({
     onClick,
-    radius = 128 
+    radius = 128
 }: CircleProps) {
     const [colorBlobs, setColorBlobs] = useState<ColorBlob[]>([]);
 
     const getRandomColor = (): string => {
         const h = Math.floor(150 + Math.random() * 90);
-        const s = Math.floor(100); 
-        const l = Math.floor(45); 
+        const s = Math.floor(100);
+        const l = Math.floor(45);
         return `hsl(${h}, ${s}%, ${l}%)`;
     };
 
@@ -53,8 +54,8 @@ export default function DiffusedGradientCircle({
                 color: getRandomColor(),
                 x: position.x,
                 y: position.y,
-                size: 50 + Math.random() * 40, 
-                opacity: 0.7 + Math.random() * 0.3 
+                size: 50 + Math.random() * 40,
+                opacity: 0.7 + Math.random() * 0.3
             });
         }
 
@@ -64,13 +65,13 @@ export default function DiffusedGradientCircle({
                 color: getRandomColor(),
                 x: position.x,
                 y: position.y,
-                size: 20 + Math.random() * 30, 
-                opacity: 0.6 + Math.random() * 0.4 
+                size: 20 + Math.random() * 30,
+                opacity: 0.6 + Math.random() * 0.4
             });
         }
 
         setColorBlobs(newBlobs);
-    }, [radius]); 
+    }, [radius]);
 
     const getBlurAmount = (): string => {
         if (radius <= 32) return '8px';
@@ -96,8 +97,15 @@ export default function DiffusedGradientCircle({
     };
 
     return (
-        <div style={circleStyle}
-        onClick={onClick}
+        <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ 
+                duration: 0.3,
+                ease: 'easeInOut'
+            }}
+            style={circleStyle}
+            onClick={onClick}
         >
             <div style={circleBgStyle}
                 className='group-hover:bg-emerald-500 transition duration-200 ease-in-out'
@@ -119,6 +127,6 @@ export default function DiffusedGradientCircle({
                     />
                 ))}
             </div>
-        </div>
+        </motion.div>
     );
 };
