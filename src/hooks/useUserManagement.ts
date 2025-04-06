@@ -10,8 +10,13 @@ export const useUserManagement = (supabase: SupabaseClient) => {
         });
     };
 
+    const signOut = async () => {
+        console.log("Signing out...")
+        await supabase.auth.signOut();
+    };
+
     return {
-        signOut: () => supabase.auth.signOut(),
+        signOut,
         updateUsername,
     }
 };

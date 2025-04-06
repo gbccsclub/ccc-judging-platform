@@ -9,12 +9,14 @@ interface ColorBlob {
 }
 
 export interface CircleProps {
+    onClick?: () => void;
     radius?: number;
 }
 
 export default function DiffusedGradientCircle({
+    onClick,
     radius = 128 
-}) {
+}: CircleProps) {
     const [colorBlobs, setColorBlobs] = useState<ColorBlob[]>([]);
 
     const getRandomColor = (): string => {
@@ -94,7 +96,9 @@ export default function DiffusedGradientCircle({
     };
 
     return (
-        <div style={circleStyle}>
+        <div style={circleStyle}
+        onClick={onClick}
+        >
             <div style={circleBgStyle}
                 className='group-hover:bg-emerald-500 transition duration-200 ease-in-out'
             >
