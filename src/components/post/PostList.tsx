@@ -14,12 +14,7 @@ export default function PostList({
     loadMore,
 }: PostListProps) {
     return <>
-        {posts.map((post) =>
-            <PostCard
-                key={post.id}
-                post={post}
-            />)
-        }
+        {posts.map((post) => <PostCard key={post.id} post={post} />)}
 
         {loading
             ? <div className="text-center">Loading...</div>
