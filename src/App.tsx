@@ -11,10 +11,8 @@ function App() {
     }
 
     return <>
-        <div className='flex flex-col justify-center items-center h-[90vh]'>
-            <Title />
-            {session ? <SignedInView /> : <SignedOutView />}
-        </div>
+        <Title />
+        {session ? <SignedInView /> : <SignedOutView />}
     </>;
 }
 

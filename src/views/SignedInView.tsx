@@ -3,7 +3,7 @@ import Greeting from "../components/user/Greeting";
 import UserProfile from "../components/user/UserProfile";
 import { useSupabase } from "../context/SupabaseContext";
 import { useSession } from "../context/SessionContext";
-import { Button } from "flowbite-react";
+import { motion } from "motion/react";
 import PostForm from "../components/post/PostForm";
 import { usePostManagement } from "../hooks/usePostManagement";
 import PostList from "../components/post/PostList";
@@ -32,10 +32,14 @@ export default function SignedInView({
 
     const [isPostFormOpen, setIsPostFormOpen] = useState(false);
 
-    return <div className='flex flex-col justify-start'>
+    return <>
+        <PostForm
+            createPost={createPost}
+            isOpen={isPostFormOpen}
+            onClose={() => setIsPostFormOpen(false)} />
 
-        <div className='flex flex-col space-y-2 justify-center h-[50vh]'>
-            <div className={"flex flex-col space-y-2 " + (!session ? 'w-[25rem]' : '')}>
+        <div className='flex flex-col items-center h-full'>
+            <div className='mb-8 h-[25vh] mt-[45vh] flex flex-col items-center'>
                 <h2 className="text-3xl font-serif flex flex-row items-center">
                     <Greeting />
                     <span className='pr-2'>, </span>
@@ -52,18 +56,14 @@ export default function SignedInView({
                     }
                 </h2>
             </div>
-            <PostForm
-                createPost={createPost}
-                isOpen={isPostFormOpen}
-                onClose={() => setIsPostFormOpen(false)} />
-        </div>
 
-        {/* <div className="flex flex-col space-y-2 justify-start items-center pt-20">
-            <PostList
-                loading={loading}
-                posts={posts}
-                loadMore={loadMore}
-            />
-        </div> */}
-    </div>
+            <div className="mt-4">
+                <PostList
+                    loading={loading}
+                    posts={posts}
+                    loadMore={loadMore}
+                />
+            </div>
+        </div>
+    </>
 }
