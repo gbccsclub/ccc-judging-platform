@@ -37,7 +37,7 @@ export default function SignIn({
 
                 <Button
                     size="md"
-                    color="blue"
+                    color="primary"
                     onClick={signIn}
                     disabled={loading}
                 >
