@@ -1,4 +1,4 @@
-import { Alert } from "flowbite-react";
+import { Alert, Card } from "flowbite-react";
 import { useMessage } from "../context/MessageContext";
 import { AnimatePresence, motion } from "motion/react";
 
@@ -8,7 +8,7 @@ export default function MessageDialog() {
     const colorMap = {
         success: 'success',
         error: 'failure',
-        info: 'gray',
+        info: 'info',
         warning: 'warning'
     };
 
@@ -26,21 +26,23 @@ export default function MessageDialog() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.4, ease: 'easeInOut' }}
-                className="fixed top-4 right-4 z-50"
+                className="fixed top-4 right-4 z-50 w-[30rem]"
             >
-                <Alert
-                    className="flex flex-row"
-                    color={colorMap[message.type]}
-                >
-                    <i className={'fa-solid ' + iconMap[message.type]}></i>
-                    <span> </span>
-                    {message.text}
-                    <button
-                        className='p-2 hover:-translate-y-0.5 active:translate-y-0 hover:text-blue-500 transition duration-200 ease-in-out cursor-pointer'
-                        onClick={() => setMessage(null)}
-                    >
-                        <i className="fa-solid fa-xmark"></i>
-                    </button>
+                <Alert color={colorMap[message.type]} >
+                    <div className="flex flex-row space-x-2 items-start" >
+                        <button
+                            className='p-0 hover:-translate-y-0.5 active:translate-y-0 hover:text-blue-500 transition duration-200 ease-in-out cursor-pointer'
+                            onClick={() => setMessage(null)}
+                        >
+                            <i className="fa-solid fa-xmark"></i>
+                        </button>
+
+                        <div>
+                            <i className={'fa-solid ' + iconMap[message.type]}></i>
+                            <span> </span>
+                            {message.text}
+                        </div>
+                    </div>
                 </Alert>
             </motion.div>
         }
