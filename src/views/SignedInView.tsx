@@ -7,6 +7,7 @@ import { Button } from "flowbite-react";
 import PostForm from "../components/post/PostForm";
 import { usePostManagement } from "../hooks/usePostManagement";
 import PostList from "../components/post/PostList";
+import { useState } from "react";
 
 export interface SignedInViewProps {
 }
@@ -29,8 +30,11 @@ export default function SignedInView({
         loading,
     } = usePostManagement(supabase, session);
 
-    return <div>
-        <div className='flex flex-col space-y-2 justify-center h-full'>
+    const [isPostFormOpen, setIsPostFormOpen] = useState(false);
+
+    return <div className='flex flex-col justify-start'>
+
+        <div className='flex flex-col space-y-2 justify-center h-[50vh]'>
             <div className={"flex flex-col space-y-2 " + (!session ? 'w-[25rem]' : '')}>
                 <h2 className="text-3xl font-serif flex flex-row items-center">
                     <Greeting />
@@ -40,6 +44,7 @@ export default function SignedInView({
                             signOut={signOut}
                             updateUsername={updateUsername}
                             user={user}
+                            openPostForm={() => setIsPostFormOpen(true)}
                         />
                         : <div className='text-xl'>
                             <i className="fa-solid fa-circle-notch fa-spin text-blue-500"></i>
@@ -47,19 +52,18 @@ export default function SignedInView({
                     }
                 </h2>
             </div>
-
             <PostForm
                 createPost={createPost}
-            />
-
+                isOpen={isPostFormOpen}
+                onClose={() => setIsPostFormOpen(false)} />
         </div>
 
-        <div className="flex flex-col space-y-2 justify-start items-center pt-20">
+        {/* <div className="flex flex-col space-y-2 justify-start items-center pt-20">
             <PostList
                 loading={loading}
                 posts={posts}
                 loadMore={loadMore}
             />
-        </div>
+        </div> */}
     </div>
 }

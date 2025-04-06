@@ -9,6 +9,7 @@ export interface UserProfileProps {
     signOut: () => void;
     updateUsername: (username: string) => void;
     user: User;
+    openPostForm: () => void;
 }
 
 function isEmptyOrSpaces(str: string) {
@@ -19,6 +20,7 @@ export default function UserProfile({
     signOut,
     updateUsername,
     user,
+    openPostForm,
 }: UserProfileProps) {
     const { setMessage } = useMessage();
     const usernameNotChanged = user.username === "Nullll User";
@@ -71,6 +73,7 @@ export default function UserProfile({
                 handleSave={handleSave}
                 username={username}
                 previousUsername={user.username}
+                openPostForm={openPostForm}
             />
         </div>
     );

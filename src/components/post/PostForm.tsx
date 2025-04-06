@@ -3,26 +3,29 @@ import { useState } from "react";
 import Modal from "../Modal";
 
 export interface PostFormProps {
+    isOpen: boolean;
+    onClose: () => void;
     createPost: (title: string, description: string, link: string) => void;
 }
 
 export default function PostForm({
+    isOpen,
+    onClose,
     createPost,
 }: PostFormProps) {
-    const [isOpen, setIsOpen] = useState(false);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [p5jsLink, setP5jsLink] = useState("");
 
     const handleSubmit = () => {
         createPost(title, description, p5jsLink);
-        setIsOpen(false);
+        onClose();
     };
 
     return <>
         <Modal
             isOpen={isOpen}
-            onClose={() => setIsOpen(false)}
+            onClose={onClose}
             title="Create Post"
         >
             <form>
@@ -67,25 +70,16 @@ export default function PostForm({
 
                 <div className="flex flex-row">
                     <Button color='secondary' size='xs' className="mt-2 mr-2"
-                        onClick={() => setIsOpen(false)}>
+                        onClick={onClose}>
                         Cancel
                     </Button>
 
-                    <Button color='primary' size='xs' className="mt-2" 
+                    <Button color='primary' size='xs' className="mt-2"
                         onClick={handleSubmit}>
                         Create
                     </Button>
                 </div>
             </form>
         </Modal>
-
-        <Button
-            color='primary'
-            size='xs'
-            className="fixed bottom-4 right-4"
-            onClick={() => setIsOpen(true)}
-        >
-            Create Post
-        </Button>
     </>
 }

@@ -15,14 +15,9 @@ export default function PostCard({
             <p className="text-sm text-gray-500">
                 {post.description}
             </p>
-            <a
-                href={post.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500 hover:underline"
-            >
-                {post.link}
-            </a>
+            <iframe src={post.link} 
+            width={"100%"} height={500}
+            />
         </div>
     </>
 }

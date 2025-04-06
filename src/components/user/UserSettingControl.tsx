@@ -8,6 +8,7 @@ export interface UserSettingControlProps {
     handleSave: () => void;
     username: string;
     previousUsername: string;
+    openPostForm: () => void;
 }
 
 export default function UserSettingControl({
@@ -16,7 +17,8 @@ export default function UserSettingControl({
     signOut,
     handleSave,
     username,
-    previousUsername
+    previousUsername,
+    openPostForm,
 }: UserSettingControlProps) {
     return <>
         <AnimatePresence initial={false}>
@@ -47,6 +49,15 @@ export default function UserSettingControl({
                                 </motion.div>
                             }
                         </AnimatePresence>
+
+                        <Button
+                            color='primary'
+                            size='xs'
+                            className=""
+                            onClick={() => openPostForm()}
+                        >
+                            Create Post
+                        </Button>
 
                         <Button
                             size="xs" color="failure"
