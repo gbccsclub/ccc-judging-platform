@@ -108,7 +108,7 @@ export default function DiffusedGradientCircle({
             onClick={onClick}
         >
             <div style={circleBgStyle}
-                className='group-hover:bg-emerald-500 transition duration-200 ease-in-out'
+                className='group-hover:bg-emerald-500 transition duration-200 ease-in-out cursor-pointer'
             >
                 {colorBlobs.map((blob, index) => (
                     <div

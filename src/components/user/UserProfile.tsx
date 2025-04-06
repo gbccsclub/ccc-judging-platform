@@ -35,7 +35,7 @@ export default function UserProfile({
 
     return (
         <div className="relative" >
-            <div className='flex flex-row space-x-2 cursor-pointer group'>
+            <div className='flex flex-row space-x-2 group'>
                 {usernameNotChanged && (
                     <div className="absolute -top-15 left-0 z-10">
                         <div className="relative">
@@ -48,7 +48,7 @@ export default function UserProfile({
                 )}
 
                 <input
-                    className='text-md text-blue-700 focus:outline-none focus:ring-1 group-hover:text-emerald-500 border border-gray-300 rounded-md px-2 py-0 transition duration-200 ease-in-out min-w-[80px]'
+                    className='text-md text-blue-700 focus:outline-none focus:ring-1 group-hover:text-emerald-500 border border-gray-300 rounded-md px-2 py-0 transition duration-200 ease-in-out min-w-[80px] cursor-pointer'
                     style={{
                         width: `${username.length * 1.5}rem`
                     }}
