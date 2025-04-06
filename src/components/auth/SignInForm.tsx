@@ -26,7 +26,6 @@ export default function SignInForm({
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 Email <span className="text-red-500">*</span>
             </label>
-
             <div className="flex flex-row space-x-2 items-center">
                 <input
                     id="email"
