@@ -13,15 +13,18 @@ function App() {
     return (
         <ThemeProvider theme={customTheme}>
             <div className='flex flex-col justify-center items-center h-[90vh]'>
-                <Title isLoggedIn={!!session}/>
+                <Title isLoggedIn={!!session} />
 
-                {session &&
+                {session
+                    ?
                     <div className='flex flex-col space-y-2 justify-center items-end'>
-                        <Welcome session={session} />
+                        <Welcome
+                            supabase={supabase}
+                            session={session} />
                     </div>
+                    :
+                    <SignIn supabase={supabase} />
                 }
-
-                {!session && <SignIn supabase={supabase} />}
             </div>
         </ThemeProvider>
     );

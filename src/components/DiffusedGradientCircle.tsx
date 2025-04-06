@@ -96,7 +96,7 @@ export default function DiffusedGradientCircle({
     return (
         <div style={circleStyle}>
             <div style={circleBgStyle}
-                className='group-hover:bg-red-500 transition duration-200 ease-in-out'
+                className='group-hover:bg-emerald-500 transition duration-200 ease-in-out'
             >
                 {colorBlobs.map((blob, index) => (
                     <div
