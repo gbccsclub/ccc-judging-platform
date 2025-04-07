@@ -1,11 +1,9 @@
 import { NavigatedPost } from "../../types";
 import { useEffect, useRef, useState } from "react";
 import RatingCard from "./RatingCard";
-import { Session } from "@supabase/supabase-js";
 import { useSession } from "../../context/SessionContext";
 
 export interface PostCardProps {
-    session: Session;
     post: NavigatedPost;
     updateMyRating: (postId: number, aesthetic: number, originality: number) => void;
 }
@@ -21,11 +19,44 @@ export default function PostCard({
     const [aesthetic, setAesthetic] = useState(0);
     const [originality, setOriginality] = useState(0);
 
+    const [avgAesthetic, setAvgAesthetic] = useState(0);
+    const [avgOriginality, setAvgOriginality] = useState(0);
+
     useEffect(() => {
-        const rating = post.Rating?.find(r => r.rate_user_id === session?.user.id);
-        if (!rating) return;
-        setAesthetic(rating.aesthetic);
-        setOriginality(rating.originality);
+        if (!post.Rating) {
+            setAesthetic(0);
+            setOriginality(0);
+            return;
+        }
+        
+        // If Rating is a single object (not an array)
+        if (!Array.isArray(post.Rating)) {
+            setAesthetic((post.Rating as {aesthetic: number})?.aesthetic || 0);
+            setOriginality((post.Rating as {originality: number})?.originality || 0);
+            // No average to calculate with just one rating
+            setAvgAesthetic(0);
+            setAvgOriginality(0);
+            return;
+        }
+        
+        // If Rating is still an array (during transition)
+        if (post.Rating.length > 0) {
+            // Calculate averages
+            const totalAesthetic = post.Rating.reduce((acc, curr) => acc + curr.aesthetic, 0);
+            const totalOriginality = post.Rating.reduce((acc, curr) => acc + curr.originality, 0);
+            setAvgAesthetic(Number((totalAesthetic / post.Rating.length).toFixed(1)));
+            setAvgOriginality(Number((totalOriginality / post.Rating.length).toFixed(1)));
+            
+            // Set user's own rating if it exists
+            const rating = post.Rating.find(r => r.rate_user_id === session?.user.id);
+            if (rating) {
+                setAesthetic(rating.aesthetic);
+                setOriginality(rating.originality);
+            }
+        } else {
+            setAvgAesthetic(0);
+            setAvgOriginality(0);
+        }
     }, [post.Rating, session]);
 
 
@@ -102,6 +133,8 @@ export default function PostCard({
             </div>
 
             <RatingCard
+                totalAesthetic={avgAesthetic}
+                totalOriginality={avgOriginality}
                 aesthetic={aesthetic}
                 originality={originality}
                 setAesthetic={setAesthetic}

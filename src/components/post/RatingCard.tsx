@@ -1,6 +1,8 @@
 import { Button } from "flowbite-react";
 
 export interface RatingCardProps {
+    totalAesthetic: number;
+    totalOriginality: number;
     aesthetic: number;
     originality: number;
     setAesthetic: (value: number) => void;
@@ -9,6 +11,8 @@ export interface RatingCardProps {
 }
 
 export default function RatingCard({
+    totalAesthetic,
+    totalOriginality,
     aesthetic,
     originality,
     setAesthetic,
@@ -39,7 +43,7 @@ export default function RatingCard({
 
     return <div className='mt-4 p-4 bg-white rounded-lg border-gray-300 border'>
         <h3 className="text-xl font-serif text-gray-700 mb-4">
-            Rating
+            Rating: <span className="text-orange-500 text-sm font-sans ml-2">Aesthetic: {totalAesthetic || "N/A"}</span> <span className="text-blue-500 ml-2 text-sm font-sans">Originality: {totalOriginality || "N/A"}</span>
         </h3>
 
         <div className="mb-4">
