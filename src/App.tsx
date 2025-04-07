@@ -10,10 +10,17 @@ function App() {
         return <div>Loading...</div>;
     }
 
-    return <>
-        <Title />
-        {session ? <SignedInView /> : <SignedOutView />}
-    </>;
+    if (session) {
+        return <>
+            <Title />
+            <SignedInView />
+        </>;
+    } else {
+        return <div className="flex flex-col justify-center h-screen items-center">
+            <Title />
+            <SignedOutView />
+        </div>
+    }
 }
 
 export default App
