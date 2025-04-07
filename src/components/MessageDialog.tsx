@@ -1,4 +1,4 @@
-import { Alert, Card } from "flowbite-react";
+import { Alert } from "flowbite-react";
 import { useMessage } from "../context/MessageContext";
 import { AnimatePresence, motion } from "motion/react";
 
