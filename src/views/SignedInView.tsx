@@ -3,11 +3,12 @@ import Greeting from "../components/user/Greeting";
 import UserProfile from "../components/user/UserProfile";
 import { useSupabase } from "../context/SupabaseContext";
 import { useSession } from "../context/SessionContext";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import PostForm from "../components/post/PostForm";
 import { usePostManagement } from "../hooks/usePostManagement";
 import PostList from "../components/post/PostList";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Button } from "flowbite-react";
 
 export interface SignedInViewProps {
 }
@@ -31,6 +32,23 @@ export default function SignedInView({
     } = usePostManagement(supabase, session);
 
     const [isPostFormOpen, setIsPostFormOpen] = useState(false);
+    const [showBackToTop, setShowBackToTop] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setShowBackToTop(window.scrollY > 300);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
 
     return <>
         <PostForm
@@ -65,5 +83,26 @@ export default function SignedInView({
                 />
             </div>
         </div>
+
+        <AnimatePresence>
+            {showBackToTop && (
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.2 }}
+                    className="fixed bottom-6 right-6 z-50"
+                >
+                    <Button
+                        color="primary"
+                        size="sm"
+                        onClick={scrollToTop}
+                        className="rounded-full w-12 h-12 flex items-center justify-center"
+                    >
+                        <i className="fa-solid fa-arrow-up"></i>
+                    </Button>
+                </motion.div>
+            )}
+        </AnimatePresence>
     </>
 }
