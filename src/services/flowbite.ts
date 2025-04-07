@@ -8,6 +8,7 @@ export const customTheme = createTheme({
             success: "bg-green-200 text-green-600 hover:bg-green-500 hover:text-white transition duration-200 ease-in-out font-bold",
             failure: "bg-red-200 text-red-600 hover:bg-red-500 hover:text-white transition duration-200 ease-in-out font-bold",
             transparent: "bg-transparent text-gray-600 hover:bg-gray-200 hover:text-gray-800 transition duration-200 ease-in-out font-bold",
+            github: "bg-gray-800 text-white hover:bg-gray-700 hover:text-white transition duration-200 ease-in-out font-bold",
         },
     },
     popover: {

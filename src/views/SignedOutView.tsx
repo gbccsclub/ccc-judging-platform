@@ -10,12 +10,17 @@ export default function SignedOutView({
 }: SignedOutViewProps) {
     const { supabase } = useSupabase();
     const { setMessage } = useMessage();
-    const { loading, signIn } = useAuth(supabase, setMessage);
+    const { 
+        loading, 
+        signInWithEmail,
+        signInWithGithub,
+    } = useAuth(supabase, setMessage);
 
     return <>
         <SignInForm
             loading={loading}
-            signIn={signIn}
+            signInWithEmail={signInWithEmail}
+            signInWithGithub={signInWithGithub}
         />
     </>
 };

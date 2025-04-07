@@ -4,12 +4,14 @@ import { useMessage } from '../../context/MessageContext';
 
 export interface SignInProps {
     loading: boolean;
-    signIn: (email: string) => void;
+    signInWithEmail: (email: string) => void;
+    signInWithGithub: () => void;
 }
 
 export default function SignInForm({
     loading,
-    signIn,
+    signInWithEmail,
+    signInWithGithub,
 }: SignInProps) {
     const { setMessage } = useMessage();
     const [email, setEmail] = useState('');
@@ -17,7 +19,7 @@ export default function SignInForm({
     useEffect(() => {
         setMessage({
             type: 'info',
-            text: 'We are using One Time Password (OTP) authentication. You will receive an email with a login link.'
+            text: 'We are using One Time Password (OTP) authentication for email sign in. You will receive an email with a login link.'
         });
     }, []);
 
@@ -40,10 +42,22 @@ export default function SignInForm({
                 <Button
                     size="md"
                     color="primary"
-                    onClick={() => signIn(email)}
+                    onClick={() => signInWithEmail(email)}
                     disabled={loading}
                 >
                     {loading ? 'Sending...' : 'Sign In'}
+                </Button>
+
+                <p>or</p>
+
+                <Button
+                    size="md"
+                    color="github"
+                    onClick={signInWithGithub}
+                    disabled={loading}
+                >
+                    <i className="fa-brands fa-github mr-2"></i>
+                    GitHub
                 </Button>
             </div>
         </div>

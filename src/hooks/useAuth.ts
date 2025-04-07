@@ -8,7 +8,7 @@ export const useAuth = (
 ) => {
     const [loading, setLoading] = useState(false);
 
-    const signIn = async (email: string) => {
+    const signInWithEmail = async (email: string) => {
         if (!email) {
             setMessage({
                 type: 'error',
@@ -18,7 +18,10 @@ export const useAuth = (
         }
 
         setLoading(true);
-        setMessage(null);
+        setMessage({
+            type: 'loading',
+            text: 'Signing in with GitHub...'
+        });
 
         const { error } = await supabase.auth.signInWithOtp({
             email
@@ -41,8 +44,37 @@ export const useAuth = (
         setLoading(false);
     };
 
+    const signInWithGithub = async () => {
+        setMessage({
+            type: 'loading',
+            text: 'Signing in with GitHub...'
+        });
+        setLoading(true);
+
+        const { error } = await supabase.auth.signInWithOAuth({
+            provider: 'github',
+        });
+
+        if (error) {
+            setMessage({
+                type: 'error',
+                text: error instanceof Error
+                    ? error.message :
+                    'An error occurred during sign in'
+            });
+        } else {
+            setMessage({
+                type: 'success',
+                text: 'Signed in with GitHub!'
+            });
+        }
+
+        setLoading(false);
+    }
+
     return {
         loading,
-        signIn,
+        signInWithEmail,
+        signInWithGithub,
     }
 };
