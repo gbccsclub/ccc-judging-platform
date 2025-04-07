@@ -4,12 +4,12 @@ import { useMessage } from '../../context/MessageContext';
 
 export interface SignInProps {
     loading: boolean;
-    signIn: (email: string) => void;
+    signInWithEmail: (email: string) => void;
 }
 
 export default function SignInForm({
     loading,
-    signIn,
+    signInWithEmail,
 }: SignInProps) {
     const { setMessage } = useMessage();
     const [email, setEmail] = useState('');
@@ -40,7 +40,7 @@ export default function SignInForm({
                 <Button
                     size="md"
                     color="primary"
-                    onClick={() => signIn(email)}
+                    onClick={() => signInWithEmail(email)}
                     disabled={loading}
                 >
                     {loading ? 'Sending...' : 'Sign In'}

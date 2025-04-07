@@ -8,7 +8,7 @@ export const useAuth = (
 ) => {
     const [loading, setLoading] = useState(false);
 
-    const signIn = async (email: string) => {
+    const signInWithEmail = async (email: string) => {
         if (!email) {
             setMessage({
                 type: 'error',
@@ -41,8 +41,14 @@ export const useAuth = (
         setLoading(false);
     };
 
+    // const signInWithGithub = async () => {
+    //     const { data, error } = await supabase.auth.signInWithOAuth({
+    //         provider: 'github',
+    //     })
+    // }
+
     return {
         loading,
-        signIn,
+        signInWithEmail,
     }
 };
