@@ -1,14 +1,21 @@
-import { PostWithUser } from "../../types";
+import { NavigatedPost } from "../../types";
 import { useEffect, useRef, useState } from "react";
-import PostDetail from "./PostDetail";
+import RatingCard from "./RatingCard";
 
 export interface PostCardProps {
-    post: PostWithUser;
+    post: NavigatedPost;
+    updateMyRating: (postId: number, aesthetic: number, originality: number) => void;
 }
 
-export default function PostCard({ post }: PostCardProps) {
+export default function PostCard({
+    post,
+    updateMyRating,
+}: PostCardProps) {
     const [isVisible, setIsVisible] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null);
+
+    const [aesthetic, setAesthetic] = useState(post.Rating ? post.Rating.aesthetic : 0);
+    const [originality, setOriginality] = useState(post.Rating ? post.Rating.originality : 0);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -58,7 +65,38 @@ export default function PostCard({ post }: PostCardProps) {
             </div>
         </div>
 
-        <PostDetail post={post} />
+        <div className="p-5 flex-1">
+            <div className="mt-4 flex items-start justify-between mb-2">
+                <a
+                    className="text-2xl font-bold font-serif text-gray-800 hover:text-blue-600 transition group flex items-center gap-2"
+                    target="_blank"
+                    href={`https://editor.p5js.org/sokmontrey/sketches/${post.link}`}
+                >
+                    {post.title}
+                    <i className="fa-solid fa-external-link text-xs text-gray-400 group-hover:text-blue-600 transition-colors" />
+                </a>
+            </div>
+
+            <div className="mt-2">
+                {post.description ? (
+                    <p className="text-gray-600 leading-relaxed">
+                        {post.description}
+                    </p>
+                ) : (
+                    <p className="text-gray-500 italic">
+                        No description provided
+                    </p>
+                )}
+            </div>
+
+            <RatingCard
+                aesthetic={aesthetic}
+                originality={originality}
+                setAesthetic={setAesthetic}
+                setOriginality={setOriginality}
+                onSubmit={() => updateMyRating(post.id, aesthetic, originality)}
+            />
+        </div>
     </div>);
 }
 

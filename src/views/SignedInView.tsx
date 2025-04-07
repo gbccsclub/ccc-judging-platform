@@ -34,8 +34,8 @@ export default function SignedInView({
     } = usePostManagement(supabase, session);
 
     const {
-        myRatings,
-    } = useRatingManagement(supabase, session, posts)
+        updateMyRating,
+    } = useRatingManagement(supabase, session, posts);
 
     const [isPostFormOpen, setIsPostFormOpen] = useState(false);
     const [showBackToTop, setShowBackToTop] = useState(false);
@@ -86,6 +86,7 @@ export default function SignedInView({
                     loading={loading}
                     posts={posts}
                     loadMore={loadMore}
+                    updateMyRating={updateMyRating}
                 />
             </div>
         </div>
