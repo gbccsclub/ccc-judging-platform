@@ -40,28 +40,22 @@ export const usePostManagement = (
         if (!session) return;
         setLoading(true);
         const { data, error } = await supabase
-            .from("Post")
-            .select(`
-                *,
-                User:user_id (
-                    id,
-                    username
-                )
-            `)
-            .order("created_at", { ascending: false })
+            .from('Post')
+            .select('*, User!inner(*)')
+            .order('created_at', { ascending: false })
             .range((page - 1) * numPostsPerPage, page * numPostsPerPage - 1);
-        
+
         if (error) {
             setMessage({ type: 'error', text: error.message });
         } else if (data) {
             // Filter out posts with null User before setting state
             const validPosts = data.filter(post => post.User !== null);
-            
+
             // Check if we received fewer items than requested
             if (validPosts.length < numPostsPerPage) {
                 setHasMore(false);
             }
-            
+
             // If we're on page 1, replace posts, otherwise append
             if (page === 1) {
                 setPosts(validPosts);
