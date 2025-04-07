@@ -9,6 +9,8 @@ import { usePostManagement } from "../hooks/usePostManagement";
 import PostList from "../components/post/PostList";
 import { useState, useEffect } from "react";
 import { Button } from "flowbite-react";
+import { sup } from "motion/react-client";
+import { useRatingManagement } from "../hooks/useRatingManagement";
 
 export interface SignedInViewProps {
 }
@@ -30,6 +32,10 @@ export default function SignedInView({
         loadMore,
         loading,
     } = usePostManagement(supabase, session);
+
+    const {
+        myRatings,
+    } = useRatingManagement(supabase, session, posts)
 
     const [isPostFormOpen, setIsPostFormOpen] = useState(false);
     const [showBackToTop, setShowBackToTop] = useState(false);
