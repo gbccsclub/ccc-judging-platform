@@ -1,5 +1,6 @@
 import { PostWithUser } from "../../types";
 import { useEffect, useRef, useState } from "react";
+import PostDetail from "./PostDetail";
 
 export interface PostCardProps {
     post: PostWithUser;
@@ -34,10 +35,10 @@ export default function PostCard({ post }: PostCardProps) {
         day: 'numeric'
     });
 
-    return (
+    return (<div className='flex flex-row items-start justify-center w-[70vw]'>
         <div
             ref={cardRef}
-            className="rounded-lg overflow-hidden border border-gray-200 my-5"
+            className="relative rounded-lg overflow-hidden border border-gray-200 my-5"
         >
             <div className="relative w-100 h-110 bg-gray-100 overflow-hidden">
                 {isVisible &&
@@ -55,34 +56,10 @@ export default function PostCard({ post }: PostCardProps) {
                     <span className="text-xs opacity-70">{formattedDate}</span>
                 </div>
             </div>
-
-            {/* Content area */}
-            <div className="p-5">
-                <div className="flex items-start justify-between mb-2">
-                    <a
-                        className="text-xl font-bold font-serif text-gray-800 hover:text-blue-600 transition group flex items-center gap-2"
-                        target="_blank"
-                        href={`https://editor.p5js.org/sokmontrey/sketches/${post.link}`}
-                    >
-                        {post.title}
-                        <i className="fa-solid fa-external-link text-xs text-gray-400 group-hover:text-blue-600 transition-colors" />
-                    </a>
-                </div>
-
-                <div className="mt-2">
-                    {post.description ? (
-                        <p className="text-gray-600 leading-relaxed">
-                            {post.description}
-                        </p>
-                    ) : (
-                        <p className="text-gray-500 italic">
-                            No description provided
-                        </p>
-                    )}
-                </div>
-            </div>
         </div>
-    );
+
+        <PostDetail post={post} />
+    </div>);
 }
 
 
