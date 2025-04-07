@@ -54,16 +54,19 @@ export const usePostManagement = (
         if (error) {
             setMessage({ type: 'error', text: error.message });
         } else if (data) {
+            // Filter out posts with null User before setting state
+            const validPosts = data.filter(post => post.User !== null);
+            
             // Check if we received fewer items than requested
-            if (data.length < numPostsPerPage) {
+            if (validPosts.length < numPostsPerPage) {
                 setHasMore(false);
             }
             
             // If we're on page 1, replace posts, otherwise append
             if (page === 1) {
-                setPosts(data);
+                setPosts(validPosts);
             } else {
-                setPosts(prevPosts => [...prevPosts, ...data]);
+                setPosts(prevPosts => [...prevPosts, ...validPosts]);
             }
         }
         setLoading(false);
