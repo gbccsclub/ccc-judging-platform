@@ -12,13 +12,15 @@ export default function SignedOutView({
     const { setMessage } = useMessage();
     const { 
         loading, 
-        signInWithEmail 
+        signInWithEmail,
+        signInWithGithub,
     } = useAuth(supabase, setMessage);
 
     return <>
         <SignInForm
             loading={loading}
             signInWithEmail={signInWithEmail}
+            signInWithGithub={signInWithGithub}
         />
     </>
 };
