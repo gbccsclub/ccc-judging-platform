@@ -5,9 +5,7 @@ export interface PostCardProps {
     post: PostWithUser;
 }
 
-export default function PostCard({
-    post,
-}: PostCardProps) {
+export default function PostCard({ post }: PostCardProps) {
     const [isVisible, setIsVisible] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null);
 
@@ -30,37 +28,62 @@ export default function PostCard({
         };
     }, []);
 
-    return <>
-        <div ref={cardRef}
-            className="flex flex-col space-y-2 w-[25rem] p-4 ">
-            <div className='flex flex-row justify-between'>
-                <a className="text-3xl font-serif font-medium hover:text-blue-700 transition duration-200 ease-in-out"
-                    target="_blank"
-                    href={"https://editor.p5js.org/sokmontrey/sketches/" + post.link}
-                >
-                    {post.title} <i className="fa-solid fa-external-link text-xs text-gray-400"></i>
-                </a>
-                <div className="flex flex-col items-end">
-                    <p>{post.User.username}</p>
-                    <p className="text-xs text-gray-500">
-                        {new Date(post.created_at).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric'
-                        })}
-                    </p>
+    const formattedDate = new Date(post.created_at).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    });
+
+    return (
+        <div
+            ref={cardRef}
+            className="rounded-lg overflow-hidden border border-gray-100"
+        >
+            <div className="relative w-100 h-110 bg-gray-100 overflow-hidden">
+                {isVisible &&
+                    <iframe
+                        src={`https://editor.p5js.org/sokmontrey/full/${post.link}`}
+                        width="100%"
+                        height="100%"
+                        className="absolute inset-0"
+                    />
+                }
+                {/* User info overlaid on preview */}
+                <div className="absolute bottom-6 left-2 items-center bg-white border border-gray-200 bg-opacity-60 rounded-full px-3 py-1 text-black">
+                    <span className="text-sm font-medium">{post.User.username}</span>
+                    <span className="mx-2 text-xs opacity-70">•</span>
+                    <span className="text-xs opacity-70">{formattedDate}</span>
                 </div>
             </div>
-            {post.description
-                ? <p className="text-sm text-gray-500">
-                    {post.description}
-                </p>
-                : <p className="text-sm text-gray-500 italic">
-                    No description provided
-                </p>
-            }
-            <br />
-            {isVisible && <iframe src={"https://editor.p5js.org/sokmontrey/full/" + post.link} width={"100%"} height={470} />}
-        </div >
-    </>
+
+            {/* Content area */}
+            <div className="p-5">
+                <div className="flex items-start justify-between mb-2">
+                    <a
+                        className="text-xl font-bold font-serif text-gray-800 hover:text-blue-600 transition group flex items-center gap-2"
+                        target="_blank"
+                        href={`https://editor.p5js.org/sokmontrey/sketches/${post.link}`}
+                    >
+                        {post.title}
+                        <i className="fa-solid fa-external-link text-xs text-gray-400 group-hover:text-blue-600 transition-colors" />
+                    </a>
+                </div>
+
+                <div className="mt-2">
+                    {post.description ? (
+                        <p className="text-gray-600 leading-relaxed">
+                            {post.description}
+                        </p>
+                    ) : (
+                        <p className="text-gray-500 italic">
+                            No description provided
+                        </p>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
 }
+
+
+

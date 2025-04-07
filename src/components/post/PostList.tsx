@@ -1,9 +1,9 @@
 import { Button } from "flowbite-react";
-import { Post } from "../../types";
+import { Post, PostWithUser } from "../../types";
 import PostCard from "./PostCard";
 
 export interface PostListProps {
-    posts: Post[];
+    posts: PostWithUser[];
     loading: boolean;
     loadMore: () => void;
 }
@@ -21,7 +21,7 @@ export default function PostList({
             : <Button
                 color="transparent"
                 size="xs"
-                className="text-center"
+                className="text-center mb-20 mt-10"
                 onClick={loadMore}
             >
                 Load More
