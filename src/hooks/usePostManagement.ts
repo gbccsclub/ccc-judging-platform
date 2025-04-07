@@ -48,7 +48,6 @@ export const usePostManagement = (
                     username
                 )
             `)
-            .eq("user_id", session.user.id)
             .order("created_at", { ascending: false })
             .range((page - 1) * numPostsPerPage, page * numPostsPerPage - 1);
         
