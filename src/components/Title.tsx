@@ -13,7 +13,12 @@ export default function Title ({
                 Creative Coding Challenge
             </h1>
             <p className={(isLoggedIn ? "text-sm" : "text-lg") + ' text-gray-500'}>
-                by GBC CS Club
+                by GBC CS Club 
+                <a 
+                    href="https://github.com/gbccsclub/ccc-judging-platform"
+                    className="text-blue-500 hover:underline"
+                    target="_blank"
+                ><i className="fa-brands fa-github text-lg ml-2" /></a>
             </p>
         </div>
     </>
