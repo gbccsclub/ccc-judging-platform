@@ -46,19 +46,14 @@ export const usePostManagement = (
                 User!inner(*),
                 Rating!left(*)
             `)
-            .eq('Rating.rate_user_id', session.user.id)
+            // .eq('Rating.rate_user_id', session.user.id)
             .order('created_at', { ascending: false })
             .range((page - 1) * numPostsPerPage, page * numPostsPerPage - 1);
 
         if (error) {
             setMessage({ type: 'error', text: error.message });
         } else if (data) {
-            const validPosts = data
-                .filter(post => post.User !== null)
-                .map(post => {
-                    post.Rating = post.Rating[0];
-                    return post;
-                });
+            const validPosts = data.filter(post => post.User !== null);
 
             // Check if we received fewer items than requested
             if (validPosts.length < numPostsPerPage) {

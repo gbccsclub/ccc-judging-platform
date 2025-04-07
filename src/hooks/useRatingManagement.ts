@@ -1,12 +1,9 @@
 import { Session, SupabaseClient } from "@supabase/supabase-js";
-import { PostWithUser } from "../types";
-import { useEffect } from "react";
 import { useMessage } from "../context/MessageContext";
 
 export const useRatingManagement = (
     supabase: SupabaseClient,
     session: Session | null,
-    posts: PostWithUser[],
 ) => {
     const { setMessage } = useMessage();
 
@@ -55,10 +52,6 @@ export const useRatingManagement = (
             }
         }
     };
-
-    useEffect(() => {
-        if (!session) return;
-    }, [session, posts]);
 
     return {
         updateMyRating,

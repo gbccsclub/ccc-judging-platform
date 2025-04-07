@@ -1,8 +1,11 @@
 import { NavigatedPost } from "../../types";
 import { useEffect, useRef, useState } from "react";
 import RatingCard from "./RatingCard";
+import { Session } from "@supabase/supabase-js";
+import { useSession } from "../../context/SessionContext";
 
 export interface PostCardProps {
+    session: Session;
     post: NavigatedPost;
     updateMyRating: (postId: number, aesthetic: number, originality: number) => void;
 }
@@ -11,11 +14,20 @@ export default function PostCard({
     post,
     updateMyRating,
 }: PostCardProps) {
+    const { session } = useSession();
     const [isVisible, setIsVisible] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null);
 
-    const [aesthetic, setAesthetic] = useState(post.Rating ? post.Rating.aesthetic : 0);
-    const [originality, setOriginality] = useState(post.Rating ? post.Rating.originality : 0);
+    const [aesthetic, setAesthetic] = useState(0);
+    const [originality, setOriginality] = useState(0);
+
+    useEffect(() => {
+        const rating = post.Rating?.find(r => r.rate_user_id === session?.user.id);
+        if (!rating) return;
+        setAesthetic(rating.aesthetic);
+        setOriginality(rating.originality);
+    }, [post.Rating, session]);
+
 
     useEffect(() => {
         const observer = new IntersectionObserver(
