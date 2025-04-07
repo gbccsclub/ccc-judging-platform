@@ -26,11 +26,7 @@ export default function PostForm({
     };
 
     return <>
-        <Modal
-            isOpen={isOpen}
-            onClose={onClose}
-            title="Create Post"
-        >
+        <Modal isOpen={isOpen} >
             <form>
                 <h2 className="text-3xl font-serif font-medium text-blue-700 mb-4">
                     Create a new post

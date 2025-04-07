@@ -1,5 +1,5 @@
 import { Button } from "flowbite-react";
-import { Post, PostWithUser } from "../../types";
+import { PostWithUser } from "../../types";
 import PostCard from "./PostCard";
 
 export interface PostListProps {
