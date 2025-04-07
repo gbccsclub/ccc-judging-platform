@@ -1,6 +1,6 @@
 import { Session, SupabaseClient } from "@supabase/supabase-js";
 import { useMessage } from "../context/MessageContext";
-import { PostWithUser } from "../types";
+import { NavigatedPost } from "../types";
 import { useEffect, useState } from "react";
 
 export const usePostManagement = (
@@ -9,7 +9,7 @@ export const usePostManagement = (
     numPostsPerPage: number = 10,
 ) => {
     const { setMessage } = useMessage();
-    const [posts, setPosts] = useState<PostWithUser[]>([]);
+    const [posts, setPosts] = useState<NavigatedPost[]>([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
@@ -41,14 +41,18 @@ export const usePostManagement = (
         setLoading(true);
         const { data, error } = await supabase
             .from('Post')
-            .select('*, User!inner(*)')
+            .select(`
+                *,
+                User!inner(*),
+                Rating!left(*)
+            `)
+            // .eq('Rating.rate_user_id', session.user.id)
             .order('created_at', { ascending: false })
             .range((page - 1) * numPostsPerPage, page * numPostsPerPage - 1);
 
         if (error) {
             setMessage({ type: 'error', text: error.message });
         } else if (data) {
-            // Filter out posts with null User before setting state
             const validPosts = data.filter(post => post.User !== null);
 
             // Check if we received fewer items than requested
