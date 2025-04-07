@@ -37,7 +37,7 @@ export default function PostCard({ post }: PostCardProps) {
     return (
         <div
             ref={cardRef}
-            className="rounded-lg overflow-hidden border border-gray-100"
+            className="rounded-lg overflow-hidden border border-gray-200"
         >
             <div className="relative w-100 h-110 bg-gray-100 overflow-hidden">
                 {isVisible &&
