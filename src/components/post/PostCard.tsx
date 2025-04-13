@@ -85,12 +85,12 @@ export default function PostCard({
         day: 'numeric'
     });
 
-    return (<div className='flex flex-row items-start justify-center w-[70vw]'>
+    return (<div className='flex flex-col pb-5 md:pb-0 border-b md:border-none border-gray-200 md:flex-row items-center md:items-start justify-center mb-10 md:mb-0 md:w-[70vw]'>
         <div
             ref={cardRef}
-            className="relative rounded-lg overflow-hidden border border-gray-200 my-5"
+            className="relative rounded-lg overflow-hidden border border-gray-200 md:my-5"
         >
-            <div className="relative w-100 h-110 bg-gray-100 overflow-hidden">
+            <div className="relative w-90 md:w-100 h-110 bg-gray-100 overflow-hidden">
                 {isVisible &&
                     <iframe
                         src={post.link}
@@ -108,8 +108,7 @@ export default function PostCard({
             </div>
         </div>
 
-
-        <div className="p-5 flex-1">
+        <div className="px-5 md:p-5 flex-1">
             <div className="mt-4 flex items-start justify-between mb-2">
                 <a
                     className="text-xl font-bold font-serif text-gray-800 hover:text-blue-600 transition group flex items-center gap-2"
