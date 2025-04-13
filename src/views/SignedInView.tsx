@@ -62,10 +62,9 @@ export default function SignedInView({
             onClose={() => setIsPostFormOpen(false)} />
 
         <div className='flex flex-col items-center h-full'>
-            <div className='mb-8 h-[25vh] mt-[45vh] flex flex-col items-center'>
-                <h2 className="text-3xl font-serif flex flex-row items-center">
+            <div className='h-[5vh] mb-[10vh] md:mb-[0vh] mt-[10vh] mb-8 md:h-[25vh] md:mt-[45vh] flex flex-col items-center'>
+                <h2 className="text-3xl font-serif flex flex-col md:flex-row items-start">
                     <Greeting />
-                    <span className='pr-2'>, </span>
                     {user ?
                         <UserProfile
                             signOut={signOut}

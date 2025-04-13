@@ -29,7 +29,7 @@ export default function Modal({
                     transition={{ duration: 0.2, ease: 'easeInOut' }}
                     className="fixed inset-0 z-50 flex items-center justify-center"
                 >
-                    <div className={`bg-white rounded-lg shadow-lg max-w-md w-full mx-4 overflow-hidden ${className}`}>
+                    <div className={`bg-white rounded-lg shadow-lg max-w-md w-85 md:w-full mx-4 overflow-hidden ${className}`}>
                         <div className="p-4">
                             {children}
                         </div>
