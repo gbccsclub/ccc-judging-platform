@@ -9,6 +9,7 @@ import { usePostManagement } from "../hooks/usePostManagement";
 import PostList from "../components/post/PostList";
 import { useState, useEffect } from "react";
 import { Button } from "flowbite-react";
+import { useRatingManagement } from "../hooks/useRatingManagement";
 
 export interface SignedInViewProps {
 }
@@ -30,6 +31,10 @@ export default function SignedInView({
         loadMore,
         loading,
     } = usePostManagement(supabase, session);
+
+    const {
+        updateMyRating,
+    } = useRatingManagement(supabase, session);
 
     const [isPostFormOpen, setIsPostFormOpen] = useState(false);
     const [showBackToTop, setShowBackToTop] = useState(false);
@@ -80,6 +85,7 @@ export default function SignedInView({
                     loading={loading}
                     posts={posts}
                     loadMore={loadMore}
+                    updateMyRating={updateMyRating}
                 />
             </div>
         </div>
