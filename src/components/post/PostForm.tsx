@@ -56,14 +56,14 @@ export default function PostForm({
                 ></textarea>
 
                 <label htmlFor="p5js-link" className="block text-sm font-medium text-gray-700 mb-1">
-                    P5JS Sketch Id <span className="text-red-500">*</span>
+                    P5JS Sketch Link (Full)<span className="text-red-500">*</span>
                 </label>
                 <input
                     id="p5js-link"
                     type="text"
                     value={p5jsLink}
                     onChange={(e) => setP5jsLink(e.target.value)}
-                    placeholder="(editor.p5js.org/username/sketches/[id])"
+                    placeholder="(Share > Full > Copy Link)"
                     className="text-xs px-3 py-2 border border-gray-300 rounded-md w-full mb-2"
                 />
 
