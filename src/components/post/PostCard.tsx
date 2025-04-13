@@ -42,7 +42,7 @@ export default function PostCard({ post }: PostCardProps) {
             <div className="relative w-100 h-110 bg-gray-100 overflow-hidden">
                 {isVisible &&
                     <iframe
-                        src={`https://editor.p5js.org/sokmontrey/full/${post.link}`}
+                        src={post.link}
                         width="100%"
                         height="100%"
                         className="absolute inset-0"
@@ -62,7 +62,7 @@ export default function PostCard({ post }: PostCardProps) {
                     <a
                         className="text-xl font-bold font-serif text-gray-800 hover:text-blue-600 transition group flex items-center gap-2"
                         target="_blank"
-                        href={`https://editor.p5js.org/sokmontrey/sketches/${post.link}`}
+                        href={post.link}
                     >
                         {post.title}
                         <i className="fa-solid fa-external-link text-xs text-gray-400 group-hover:text-blue-600 transition-colors" />

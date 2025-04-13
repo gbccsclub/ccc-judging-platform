@@ -84,25 +84,35 @@ export default function SignedInView({
             </div>
         </div>
 
-        <AnimatePresence>
-            {showBackToTop && (
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ duration: 0.2 }}
-                    className="fixed bottom-6 right-6 z-50"
-                >
-                    <Button
-                        color="primary"
-                        size="sm"
-                        onClick={scrollToTop}
-                        className="rounded-full w-12 h-12 flex items-center justify-center"
+        <div className="fixed bottom-4 right-4 flex flex-col">
+            <Button
+                color="primary"
+                size="sm"
+                onClick={() => setIsPostFormOpen(true)}
+                className="rounded-full w-12 h-12 flex items-center justify-center mb-2"
+            >
+                <i className="fa-solid fa-plus"></i>
+            </Button>
+
+            <AnimatePresence>
+                {showBackToTop && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.2 }}
                     >
-                        <i className="fa-solid fa-arrow-up"></i>
-                    </Button>
-                </motion.div>
-            )}
-        </AnimatePresence>
+                        <Button
+                            color="secondary"
+                            size="sm"
+                            onClick={scrollToTop}
+                            className="rounded-full w-12 h-12 flex items-center justify-center"
+                        >
+                            <i className="fa-solid fa-arrow-up"></i>
+                        </Button>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
     </>
 }
