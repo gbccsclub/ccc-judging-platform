@@ -1,7 +1,8 @@
 import { NavigatedPost } from "../../types";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import RatingCard from "./RatingCard";
 import { usePostRating } from "../../hooks/usePostRating";
+import { useIntersectionObserver } from "../../hooks/useIntersectionObserver";
 
 export interface PostCardProps {
     post: NavigatedPost;
@@ -12,8 +13,7 @@ export default function PostCard({
     post,
     updateMyRating,
 }: PostCardProps) {
-    const [isVisible, setIsVisible] = useState(false);
-    const cardRef = useRef<HTMLDivElement>(null);
+    const { ref: cardRef, isVisible } = useIntersectionObserver();
     
     const {
         aesthetic,
@@ -24,25 +24,6 @@ export default function PostCard({
         setOriginality
     } = usePostRating(post);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                setIsVisible(entry.isIntersecting);
-            },
-            { threshold: 0.1 }
-        );
-
-        if (cardRef.current) {
-            observer.observe(cardRef.current);
-        }
-
-        return () => {
-            if (cardRef.current) {
-                observer.unobserve(cardRef.current);
-            }
-        };
-    }, []);
-
     const formattedDate = new Date(post.created_at).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'short',
@@ -51,7 +32,7 @@ export default function PostCard({
 
     return (<div className='flex flex-col pb-5 md:pb-0 border-b md:border-none border-gray-200 md:flex-row items-center md:items-start justify-center mb-10 md:mb-0 md:w-[70vw]'>
         <div
-            ref={cardRef}
+            ref={cardRef as React.RefObject<HTMLDivElement>}
             className="relative rounded-lg overflow-hidden border border-gray-200 md:my-5"
         >
             <div className="relative w-90 md:w-100 h-110 bg-gray-100 overflow-hidden">
