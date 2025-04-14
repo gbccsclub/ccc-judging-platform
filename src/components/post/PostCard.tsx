@@ -1,5 +1,4 @@
 import { NavigatedPost } from "../../types";
-import { useRef, useState } from "react";
 import RatingCard from "./RatingCard";
 import { usePostRating } from "../../hooks/usePostRating";
 import { useIntersectionObserver } from "../../hooks/useIntersectionObserver";
