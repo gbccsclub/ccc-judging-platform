@@ -16,6 +16,20 @@ export const usePostManagement = (
 
     const createPost = async (title: string, description: string, link: string) => {
         if (!session) return;
+        if (!title || !link) {
+            setMessage({
+                type: "error",
+                text: "Please fill in all required fields",
+            });
+            return;
+        }
+        if (!link.includes('/full/')) {
+            setMessage({
+                type: "error",
+                text: "Please enter a valid Full P5JS link",
+            });
+            return;
+        }
         setMessage({ type: 'loading', text: 'Creating post...' });
         const { error } = await supabase
             .from("Post")
