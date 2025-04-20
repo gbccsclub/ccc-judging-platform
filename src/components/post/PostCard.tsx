@@ -81,6 +81,7 @@ export default function PostCard({
             </div>
 
             <RatingCard
+                totalVotes={post.Rating ? post.Rating.length : 0}
                 totalAesthetic={avgAesthetic}
                 totalOriginality={avgOriginality}
                 aesthetic={aesthetic}
