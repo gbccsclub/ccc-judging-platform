@@ -1,6 +1,7 @@
 import { Button } from "flowbite-react";
 import { useState } from "react";
 import Modal from "../Modal";
+import {useMessage} from "../../context/MessageContext.tsx";
 
 export interface PostFormProps {
     isOpen: boolean;
@@ -13,11 +14,19 @@ export default function PostForm({
     onClose,
     createPost,
 }: PostFormProps) {
+    const { setMessage } = useMessage();
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [p5jsLink, setP5jsLink] = useState("");
 
     const handleSubmit = () => {
+        if (!p5jsLink.includes('/full/')) {
+            setMessage({
+                type: "error",
+                text: (<span>Please enter a valid <strong>Full</strong> P5JS link</span>)
+            });
+            return;
+        }
         createPost(title, description, p5jsLink);
         onClose();
         setTitle("");
