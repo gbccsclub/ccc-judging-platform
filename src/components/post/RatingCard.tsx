@@ -1,6 +1,7 @@
 import { Button } from "flowbite-react";
 
 export interface RatingCardProps {
+    totalVotes: number;
     totalAesthetic: number;
     totalOriginality: number;
     aesthetic: number;
@@ -11,6 +12,7 @@ export interface RatingCardProps {
 }
 
 export default function RatingCard({
+    totalVotes,
     totalAesthetic,
     totalOriginality,
     aesthetic,
@@ -42,9 +44,17 @@ export default function RatingCard({
     };
 
     return <div className='mt-4 p-4 bg-white rounded-lg border-gray-300 border'>
-        <h3 className="text-xl font-serif text-gray-700 mb-4">
-            Rating: <span className="text-orange-500 text-sm font-sans ml-2">Aesthetic: {totalAesthetic || "N/A"}</span> <span className="text-blue-500 ml-2 text-sm font-sans">Originality: {totalOriginality || "N/A"}</span>
-        </h3>
+        <div className="flex justify-between items-center mb-4" >
+            <h3 className="text-xl font-serif text-gray-700">
+                Rating: <span
+                className="text-orange-500 text-sm font-sans ml-2">Aesthetic: {totalAesthetic || "N/A"}</span> <span
+                className="text-blue-500 ml-2 text-sm font-sans">Originality: {totalOriginality || "N/A"}</span>
+            </h3>
+
+            <p className={"text-sm font-medium text-gray-400"}>
+                {totalVotes || "0"} Vote{totalVotes <= 1 ? "" : "s"}
+            </p>
+        </div>
 
         <div className="mb-4">
             <div className="flex justify-between items-center mb-2">
