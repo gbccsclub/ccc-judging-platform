@@ -13,7 +13,7 @@ export default function PostCard({
     updateMyRating,
 }: PostCardProps) {
     const { ref: cardRef, isVisible } = useIntersectionObserver();
-    
+
     const {
         aesthetic,
         originality,
@@ -54,15 +54,19 @@ export default function PostCard({
 
         <div className="px-5 md:p-5 flex-1">
             <div className="mt-4 flex items-start justify-between mb-2">
-                <a
-                    className="text-xl font-bold font-serif text-gray-800 hover:text-blue-600 transition group flex items-center gap-2"
-                    target="_blank"
-                    href={post.link}
+                <p
+                    className="text-xl font-bold font-serif text-gray-800 transition group flex items-center gap-2"
                 >
                     {post.title}
-                    <i className="fa-solid fa-external-link text-xs text-gray-400 group-hover:text-blue-600 transition-colors" />
-                </a>
+                </p>
             </div>
+
+            <a className="font-mono text-blue-500 hover:text-blue-600 transition group flex items-center gap-2"
+                target="_blank"
+                href={post.link.replace('/full/', '/sketches/')}>
+                &lt; Code /&gt;
+                <i className="fa-solid fa-external-link text-xs text-gray-400 group-hover:text-blue-600 transition-colors"/>
+            </a>
 
             <div className="mt-2">
                 {post.description ? (
